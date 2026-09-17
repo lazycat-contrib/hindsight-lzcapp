@@ -1,5 +1,5 @@
 package: community.lazycat.app.hindsight
-version: 0.10.1
+version: 0.10.0
 name: Hindsight
 description: Agent memory system with retain, recall and reflect
 min_os_version: 1.5.0
