@@ -1,0 +1,95 @@
+params:
+  - id: llm_provider
+    type: string
+    name: "LLM Provider"
+    description: "LLM provider: openai, anthropic, gemini, groq, deepseek, zai, minimax, ollama, lmstudio, or any OpenAI-compatible gateway"
+    default_value: "openai"
+    optional: false
+
+  - id: llm_api_key
+    type: secret
+    name: "LLM API Key"
+    description: "API key for the provider. Leave empty for local providers (ollama, lmstudio) or subscription providers (openai-codex, claude-code, github-copilot)"
+    default_value: ""
+    optional: true
+
+  - id: llm_model
+    type: string
+    name: "LLM Model"
+    description: "Model identifier, for example gpt-4o-mini, claude-sonnet-4, gemini-2.5-flash, deepseek-chat"
+    default_value: "gpt-4o-mini"
+    optional: true
+
+  - id: llm_base_url
+    type: string
+    name: "LLM Base URL"
+    description: "Optional custom OpenAI-compatible base URL, for example https://api.deepseek.com/v1. Leave empty to use the provider default"
+    default_value: ""
+    optional: true
+
+  - id: vlm_provider
+    type: string
+    name: "Vision Model Provider"
+    description: "Optional vision slot for chunks that carry image attachments, for example gemini. Leave empty to send attachments to the retain LLM"
+    default_value: ""
+    optional: true
+
+  - id: vlm_model
+    type: string
+    name: "Vision Model"
+    description: "Optional vision model identifier, for example gemini-2.5-flash"
+    default_value: ""
+    optional: true
+
+  - id: vlm_api_key
+    type: secret
+    name: "Vision Model API Key"
+    description: "Optional API key for the vision provider"
+    default_value: ""
+    optional: true
+
+locales:
+  zh:
+    llm_provider:
+      name: "LLM 服务商"
+      description: "openai、anthropic、gemini、groq、deepseek、zai、minimax、ollama、lmstudio 或任意 OpenAI 兼容网关"
+    llm_api_key:
+      name: "LLM API Key"
+      description: "服务商 API Key；本地部署（ollama/lmstudio）或订阅制（openai-codex/claude-code/github-copilot）可留空"
+    llm_model:
+      name: "LLM 模型"
+      description: "模型标识，例如 gpt-4o-mini、claude-sonnet-4、gemini-2.5-flash、deepseek-chat"
+    llm_base_url:
+      name: "LLM 接口地址"
+      description: "可选，OpenAI 兼容自定义接口地址（如 https://api.deepseek.com/v1），留空用服务商默认"
+    vlm_provider:
+      name: "视觉模型服务商"
+      description: "可选，带图片附件内容使用的视觉模型服务商（如 gemini），留空则附件走主 LLM"
+    vlm_model:
+      name: "视觉模型"
+      description: "可选，视觉模型标识，如 gemini-2.5-flash"
+    vlm_api_key:
+      name: "视觉模型 API Key"
+      description: "可选，视觉模型服务商的 API Key"
+  en:
+    llm_provider:
+      name: "LLM Provider"
+      description: "LLM provider: openai, anthropic, gemini, groq, deepseek, zai, minimax, ollama, lmstudio, or any OpenAI-compatible gateway"
+    llm_api_key:
+      name: "LLM API Key"
+      description: "API key for the provider. Leave empty for local providers (ollama, lmstudio) or subscription providers (openai-codex, claude-code, github-copilot)"
+    llm_model:
+      name: "LLM Model"
+      description: "Model identifier, for example gpt-4o-mini, claude-sonnet-4, gemini-2.5-flash, deepseek-chat"
+    llm_base_url:
+      name: "LLM Base URL"
+      description: "Optional custom OpenAI-compatible base URL, for example https://api.deepseek.com/v1. Leave empty to use the provider default"
+    vlm_provider:
+      name: "Vision Model Provider"
+      description: "Optional vision slot for chunks that carry image attachments, for example gemini. Leave empty to send attachments to the retain LLM"
+    vlm_model:
+      name: "Vision Model"
+      description: "Optional vision model identifier, for example gemini-2.5-flash"
+    vlm_api_key:
+      name: "Vision Model API Key"
+      description: "Optional API key for the vision provider"

@@ -1,0 +1,18 @@
+package: community.lazycat.app.hindsight
+version: 0.10.0
+name: Hindsight
+description: Agent memory system with retain, recall and reflect
+min_os_version: 1.5.0
+homepage: https://github.com/vectorize-io/hindsight
+author: vectorize-io
+license: MIT
+permissions:
+  required:
+    - net.internet
+locales:
+  zh:
+    name: Hindsight
+    description: Agent 记忆系统：retain / recall / reflect，让 Agent 越用越聪明
+  en:
+    name: Hindsight
+    description: Agent memory system with retain, recall and reflect

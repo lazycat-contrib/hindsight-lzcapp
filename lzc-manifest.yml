@@ -1,0 +1,40 @@
+application:
+  subdomain: hindsight
+  multi_instance: false
+  # UI(控制面 9999) 会在容器内代理 API(8888)，单域路由到控制面即可
+  upstreams:
+    - location: /
+      backend: http://hindsight:9999/
+  injects:
+    # 附件/文件上传接入懒猫网盘文件选择器
+    - id: open-save-chooser
+      on: browser
+      when:
+        - /*
+      do:
+        - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
+
+services:
+  hindsight:
+    # upstream: ghcr.io/vectorize-io/hindsight:0.10.0
+    image: ghcr.1ms.run/vectorize-io/hindsight:0.10.0
+    # rootless 镜像 + 持久目录属主修正：startup.sh 先 chown 再降权回 UID 1000
+    user: root
+    command: /lzcapp/pkg/content/startup.sh
+    environment:
+      - HINDSIGHT_API_LLM_PROVIDER={{ .U.llm_provider }}
+      - HINDSIGHT_API_LLM_API_KEY={{ .U.llm_api_key }}
+      - HINDSIGHT_API_LLM_MODEL={{ .U.llm_model }}
+      - HINDSIGHT_API_LLM_BASE_URL={{ .U.llm_base_url }}
+      - HINDSIGHT_API_VLM_PROVIDER={{ .U.vlm_provider }}
+      - HINDSIGHT_API_VLM_MODEL={{ .U.vlm_model }}
+      - HINDSIGHT_API_VLM_API_KEY={{ .U.vlm_api_key }}
+    binds:
+      - /lzcapp/var/data:/home/hindsight/.pg0
+
+usage: |
+  安装时在设置向导填写 LLM 服务商、API Key 与模型（支持 openai、anthropic、gemini、groq、deepseek、ollama、lmstudio 及任意 OpenAI 兼容接口）。
+  打开应用即进入控制台（Dashboard），受懒猫微服账号保护。
+  数据（内嵌 PostgreSQL pg0、记忆库）持久化在 /lzcapp/var/data。
+  API 地址为应用同域名（网关鉴权），Python/Node/Go/CLI 客户端将 base_url 指向 https://hindsight.<你的域名> 即可。
+  可选：填写视觉模型（VLM）参数后，带图片附件的内容会走独立的视觉模型处理。
