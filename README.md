@@ -4,7 +4,7 @@
 
 ## 包信息
 
-- 包名：`community.lazycat.app.hindsight`
+- 包名：`community.lazycat.app.hindsight`（当前打包版本 0.10.1 = 上游 0.10.0 + 打包修订）
 - 上游镜像：`ghcr.io/vectorize-io/hindsight`（GHCR，tag 为纯 semver，如 `0.10.0`）
 - 交付方式：**mirror**（`ghcr.1ms.run` 加速器，digest 校验），仅发布**喵喵私有商店**
 - 目标架构：amd64；`min_os_version: 1.5.0`
@@ -28,6 +28,8 @@
 | `llm_model` | string | `gpt-4o-mini` | 模型标识 |
 | `llm_base_url` | string | 空 | 可选，自定义 OpenAI 兼容接口地址 |
 | `vlm_provider` / `vlm_model` / `vlm_api_key` | string/secret | 空 | 可选，图片附件走独立视觉模型 |
+
+**启动修复（0.10.1）**：`HINDSIGHT_API_SKIP_LLM_VERIFICATION=true` 去掉启动期 LLM 验证（可阻塞 35s+，失败带重试退避，会拖垮 300s 启动窗口导致重启循环）；`HINDSIGHT_API_STARTUP_WAIT_SECONDS=600` 放宽首次启动（pg0 初始化 + 迁移 + 模型加载）的等待窗口。
 
 其余 200+ 环境变量（reranker、embeddings、admission 控制等）见上游 `.env.example`，本包未暴露到向导。
 

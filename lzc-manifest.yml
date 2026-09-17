@@ -29,6 +29,12 @@ services:
       - HINDSIGHT_API_VLM_PROVIDER={{ .U.vlm_provider }}
       - HINDSIGHT_API_VLM_MODEL={{ .U.vlm_model }}
       - HINDSIGHT_API_VLM_API_KEY={{ .U.vlm_api_key }}
+      # 启动时跳过 LLM 连接验证：验证最长可阻塞 35s+（失败时带重试退避），
+      # 会拖垮 start-all.sh 的 API 就绪等待，导致控制面(9999)迟迟不监听、
+      # 网关探活失败、300s 后被判超时重启。错误 Key 会在首次使用时暴露。
+      - HINDSIGHT_API_SKIP_LLM_VERIFICATION=true
+      # 放宽启动窗口：首次启动（pg0 初始化 + 迁移 + 模型加载）可能超过默认 300s
+      - HINDSIGHT_API_STARTUP_WAIT_SECONDS=600
     binds:
       - /lzcapp/var/data:/home/hindsight/.pg0
 
