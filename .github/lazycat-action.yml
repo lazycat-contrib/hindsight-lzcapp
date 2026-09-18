@@ -35,6 +35,6 @@ stores:
     enabled: false
   private:
     enabled: true
-    skip_if_version_exists: true
+    skip_if_version_exists: false
     name: Hindsight
     summary: Agent 记忆系统 —— retain / recall / reflect，让 Agent 越用越聪明
