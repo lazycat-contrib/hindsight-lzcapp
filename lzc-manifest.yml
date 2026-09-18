@@ -33,8 +33,10 @@ services:
       # 会拖垮 start-all.sh 的 API 就绪等待，导致控制面(9999)迟迟不监听、
       # 网关探活失败、300s 后被判超时重启。错误 Key 会在首次使用时暴露。
       - HINDSIGHT_API_SKIP_LLM_VERIFICATION=true
+      # 模型/连接初始化硬上限（内存型盒子加载两个本地 ML 模型可达 1-3 分钟）
+      - HINDSIGHT_API_MODEL_INIT_TIMEOUT=900
       # 放宽启动窗口：首次启动（pg0 初始化 + 迁移 + 模型加载）可能超过默认 300s
-      - HINDSIGHT_API_STARTUP_WAIT_SECONDS=600
+      - HINDSIGHT_API_STARTUP_WAIT_SECONDS=1200
     binds:
       - /lzcapp/var/data:/home/hindsight/.pg0
 
