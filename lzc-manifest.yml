@@ -15,8 +15,8 @@ application:
         - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
 services:
   hindsight:
-    # upstream: ghcr.io/vectorize-io/hindsight:0.10.1
-    image: ghcr.1ms.run/vectorize-io/hindsight:0.10.1
+    # upstream: ghcr.io/vectorize-io/hindsight:0.10.2
+    image: ghcr.1ms.run/vectorize-io/hindsight:0.10.2
     # rootless 镜像 + 持久目录属主修正：startup.sh 先 chown 再降权回 UID 1000
     user: root
     command: /lzcapp/pkg/content/startup.sh
